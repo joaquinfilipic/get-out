@@ -1,0 +1,123 @@
+<link rel = "stylesheet" type = "text/css" href = "components/bars-list/bars-list.css">
+
+<div class="row search-bar-style">
+	
+	<div class = "container-fluid">	
+		<div class="row">
+			<div class="col-xs-12 col-sm-6 col-md-6">
+				<div id="search-container">
+            		<div class="input-group stylish-input-group">
+            			<div class="input-group-prepend">
+						    <div class="input-group-text input-group-addon">
+								<img ng-src = "images/modal/search.png" alt = "Search" />
+					        </div>
+					    </div>
+                		<input ng-model="search.name" class="form-control" placeholder=" {{'PLACEHOLDER_ENTER_NAME' | translate}}" type="text"/>
+            		</div>
+        		</div>
+        	</div>
+        	<div class="col-xs-12 col-sm-6 col-ms-6">
+        		<div class="input-group stylish-input-group date" id="datepicker-div">
+    				<div class="input-group-prepend">
+    				    <div class="input-group-text input-group-addon">
+    						<img ng-src = "images/modal/calendar.png" alt = "Calendar" />
+    			        </div>
+    			    </div>
+					<input autocomplete="off" data-date-format='yyyy-mm-dd' data-date-start-date="0d" id="datepickerInput" data-provide="datepicker" class="form-control" placeholder=" {{'PLACEHOLDER_ENTER_DATE' | translate}}">
+				</div>
+			</div>
+        </div>
+	</div>
+
+</div>
+
+<ul ng-show="availableBars()" class="event-list">
+	<li ng-repeat="bar in bars | filter:search">
+		<div class="event-item">
+			<time datetime="2017-07-20">
+				<span class="hour">{{bar.openTime}}</span>
+				<span class="hour_text">{{'BARS_LIST_HS' | translate}}</span>
+			</time>
+			<img ng-src = "data:image/png;base64,{{bar.image}}" alt="Bar Image"/>	
+			<div class="info">
+				<h2 class="title">{{bar.name}}</h2>
+				<p class="desc">{{bar.description}}</p>
+				<p ng-show="isAuthenticated" class="desc"><span class="fa fa-male"></span>{{bar.attendance}}</p>
+				<ul>
+					<li ng-if="!isAuthenticated || (isAuthenticated && !attendancesByPubAndDate['p' + bar.id + 'd' + selectedDate])" class="horizontally-spaced">
+						<a ng-click="attend(bar.id)" href="">
+							<span class="fa fa-male"></span>{{'BARS_LIST_ATTEND' | translate}}
+						</a>
+					</li>
+					<!--<li ng-if="isAuthenticated && attendancesByPubAndDate['p' + bar.id + 'd' + selectedDate]" class="horizontally-spaced">
+						<a ng-click="unattend(bar.id)" href="">
+							<span class="fa fa-male"></span>{{'BARS_LIST_UNATTEND' | translate}}
+						</a>
+					</li>-->
+					<li ng-if="isAuthenticated && attendancesByPubAndDate['p' + bar.id + 'd' + selectedDate]" class="horizontally-spaced">
+						<a ng-click="openChatModal(bar.id)">
+							<span class="fa fa-comments"></span>{{'BARS_LIST_CHAT' | translate}}
+						</a>
+					</li>
+					<li ng-if="isAuthenticated && attendancesByPubAndDate['p' + bar.id + 'd' + selectedDate]" class="horizontally-spaced">
+						<a href="#!/social/{{bar.id}}/{{selectedDate}}">
+							<span class="fa fa-users"></span>{{'BARS_LIST_SOCIAL' | translate}}
+						</a>
+					</li>
+					<li class="horizontally-spaced">
+						<a href = "#!/info/{{bar.id}}" role = "button">
+							<span class="fa fa-money"></span>{{'BARS_LIST_INFO' | translate}}
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</li>
+</ul>
+
+<div ng-if="!availableBars()">
+	<a ng-if="!loadingPubs">{{'BARS_LIST_PUBS_NOT_FOUND' | translate}} </a>
+	<a ng-if="loadingPubs">{{'LOADING' | translate}} </a>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="chatModal" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    	<div class="modal-content">
+    		<div class = "modal-header">
+				<h4 class = "modal-title horizontal-center">
+					{{'BARS_LIST_GLOBAL_CHAT' | translate}}
+				</h4>
+				<button type = "button" class = "close" data-dismiss = "modal" aria-label = "Close">
+					<span aria-hidden = "true">
+						<img ng-click="closeThisDialog('Some value')" ng-src = "images/modal/button-close.png" alt = "Close"/>
+					</span>
+				</button>
+			</div>
+			<div class = "modal-body" id="chatContainer" height="200px">	
+				<!-- Chat frame -->
+				<div class="card chat-card border-info mb-3" id="textarea">
+					<div class="card-body text overflow-y" readonly id="log">
+						<ul class="msg-list-style">
+							<li ng-repeat="message in messages">
+								<a class="chat-msg">	
+									<b>{{message.senderUsername}}:</b> {{message.message}}
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div>
+					<div class="input-group">
+						<input ng-model="globalMessage" type="text" class="form-control" placeholder="{{'PLACEHOLDER_ENTER_MSG' | translate}}" onkeydown = "if(event.keyCode === 13) {document.getElementById('sendButton').click()}">
+						<span class="input-group-btn">
+							<button ng-click="sendGlobalMessage(globalMessage)" class="btn btn-secondary" id="sendButton" type="button">
+								{{'BARS_LIST_SEND' | translate}}
+							</button>
+						</span>
+					</div>
+				</div>
+			</div>
+    	</div>
+  	</div>
+</div>

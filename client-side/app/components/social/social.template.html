@@ -1,0 +1,200 @@
+<link rel = "stylesheet" type = "text/css" href = "components/social/social.css">
+
+<div>
+	<div class="mb-3"></div>
+	<!-- Breadcrumb-new -->
+	<ul class="breadCrumbs">
+		<li class= "clear-list"><a href="#!/">{{'BREADCRUMB_HOME' | translate}}</a></li>
+		<li class= "clear-list darker-blue"><a href="#!/catalogue">{{'BREADCRUMB_PUBS' | translate}}</a></li>
+		<li class= "clear-list activePage"><p href="">{{'BREADCRUMB_SOCIAL' | translate}}</p></li>
+		<div class="clear"></div>
+	</ul>
+					
+	<div class = "container-fluid" id = "chatContainer">
+		<div class="row">
+			<div class="col-md-6 col-sm-12">
+				<a ng-click="openMatchModal()" href="" data-toggle = "modal" data-target = "#matchModal" role = "button" class = "btn btn-outline-secondary-style">{{'SOCIAL_MATCH' | translate}}</a>			
+
+				<div class="row">
+					<div class = "col-md-6">
+						<div class="card social-card border-info mb-3 scroll">
+							<div class="card-header">
+								{{'SOCIAL_MATCHES' | translate}}
+							</div>
+							<div ng-if="!hasMatches()" class="card-body overflow-y">
+								{{'SOCIAL_NO_MATCH' | translate}}
+							</div>
+							<div ng-if="hasMatches()">
+								<ul class="list-group list-group-flush msg-list-style">
+									<li ng-repeat="match in matches">
+										<div class = "list-group-item list-group-item-warning">
+											<div ng-click="selectMatchToChat(match)" role = "button" class="cursor-pointer btn col-md-8 min-padding">
+		                      					<img ng-if="match.avatar" ng-src = "data:{{match.content}};base64,{{match.avatar}}" height="50" width="50" alt="Image" class="avatar-img"/>
+												<a class="match-user-name"><b> {{match.user.name}}</b></a>
+											</div>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+								
+					<div class = "col-md-6">
+						<div class="card social-card border-info mb-3 scroll">
+							<div class="card-header">
+								{{'SOCIAL_PENDINGS' | translate}}
+							</div>
+							<div ng-if="!hasPendings()" class="card-body overflow-y">
+								{{'SOCIAL_NO_PENDINGS' | translate}}
+							</div>
+							<div ng-if="hasPendings()">
+								<ul class="list-group list-group-flush msg-list-style" >
+									<li ng-repeat="pending in pendings">
+										<div class = "list-group-item list-group-item-warning">
+											<div ng-click="openPendingModal(pending)" data-toggle = "modal" data-target = "#pendingModal" role = "button" class = "cursor-pointer btn col-md-8 min-padding">
+												<img ng-if="pending.avatar" ng-src = "data:{{pending.content}};base64,{{pending.avatar}}" height="50" width="50" alt="Image" class="avatar-img"/>
+												<a class="match-user-name"><b> {{pending.user.name}}</b></a>
+											</div>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>		
+
+				</div>				
+			</div>
+			<div class="col-md-6 col-sm-12 chat-frame" id="privateChatDiv">
+				<!--Chat-->
+				<div ng-if="showChatWindow" class = "col-md-12">
+					<div class="card social-card border-info ">
+						<div class="card-header">
+							{{'SOCIAL_CHAT' | translate}} - {{selectedMatch.user.name}}
+						</div>
+						<div class="card-body overflow-y">
+							<!-- Chat frame -->
+							<div class="card chat-card border-info mb-3" id="textarea">
+								<div class="card-body text overflow-y" readonly id="log">
+									<ul class="msg-list-style">
+										<li ng-repeat="message in messages">
+											<a class="chat-msg">	
+												<b>{{message.senderUsername}}:</b> {{message.message}}
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<div>
+								<div class="input-group">
+									<input ng-model="internMessage.msg" type="text" class="form-control" placeholder="{{'PLACEHOLDER_ENTER_MSG' | translate}}" onkeydown = "if(event.keyCode === 13) {document.getElementById('sendButton').click()}">
+									<span class="input-group-btn">
+										<button ng-click="sendInternMessage(internMessage.msg)" class="btn btn-secondary" id="sendButton" type="button">
+											{{'SOCIAL_SEND' | translate}}
+										</button>
+									</span>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- Match Modal -->
+<div class="modal fade" id="matchModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    	<div class="modal-content">
+    		<div class = "modal-header">
+				<h4 class = "modal-title horizontal-center">
+					{{'SOCIAL_MATCH' | translate}}
+				</h4>
+				<button type = "button" class = "close" data-dismiss = "modal" aria-label = "Close">
+					<span aria-hidden = "true">
+						<img ng-click="closeThisDialog('Some value')" ng-src = "images/modal/button-close.png" alt = "Close"/>
+					</span>
+				</button>
+			</div>
+			<div class = "modal-body" id="chatContainer">	
+				
+				<!-- Match frame -->					
+				<div ng-if="!hasPotentialMatches() && !loadingPotentialMatches" class=" mb-3" id="logDiv">
+					<p> {{'SOCIAL_NO_POS_MATCH' | translate}} </p>
+				</div>
+
+				<div ng-if="!hasPotentialMatches() && loadingPotentialMatches" class=" mb-3" id="logDiv">
+					<p> {{'LOADING' | translate}} </p>
+				</div>
+
+				<div ng-if="hasPotentialMatches()">
+					<div class = "user-card col-md-12" align = "center">
+							<img ng-if="!potentialMatch.avatar" class = "card-img-top matching-img" ng-src = "images/dashboard/profile-photo.png" height="300" width="200">
+							<img ng-if="potentialMatch.avatar" ng-src = "data:{{potentialMatch.content}};base64,{{potentialMatch.avatar}}" height="300" width="300" alt="Image" class="avatar-img"/>
+							<div class = "card-body">
+								<h4 class = "card-text"><b>{{potentialMatch.user.name}}</b></h4>
+								<img ng-if="potentialMatch.gender === 'MALE'" ng-src = "images/modal/male.png" height="25" width="15"/>
+								<img ng-if="potentialMatch.gender === 'FEMALE'" ng-src = "images/modal/female.png" height="25" width="15"/>
+								<p ng-if="potentialMatch.bio" class = "card-text">{{potentialMatch.bio}}</p>
+								<div class="row">					
+								<button type="button" class="btn btn-outline-success social-button style-center" ng-click="like(potentialMatch.id)">
+									<img ng-src = "images/modal/thumbsup.png"/> Like 
+									</button>
+								<button type="button" class="btn btn-outline-danger social-button style-center" ng-click="reject(potentialMatch.id)">
+									<img ng-src = "images/modal/thumbsdown.png"/> Reject 
+									</button>	
+								</div>
+							</div>
+						</div>
+				</div>
+
+
+			</div>
+    	</div>
+  	</div>
+</div>
+
+<!-- Pending Modal -->
+<div class="modal fade" id="pendingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    	<div class="modal-content">
+    		<div class = "modal-header">
+				<h4 class = "modal-title horizontal-center">
+					{{'SOCIAL_PENDING' | translate}}
+				</h4>
+				<button type = "button" class = "close" data-dismiss = "modal" aria-label = "Close">
+					<span aria-hidden = "true">
+						<img ng-click="closeThisDialog('Some value')" ng-src = "images/modal/button-close.png" alt = "Close"/>
+					</span>
+				</button>
+			</div>
+			<div class = "modal-body" id="chatContainer">	
+
+				<div>
+					<div class = "user-card col-md-12" align = "center">
+							<img ng-if="!pendingUser.avatar" class = "card-img-top matching-img" ng-src = "images/dashboard/profile-photo.png" height="300" width="300">
+							<img ng-if="pendingUser.avatar" ng-src = "data:{{pendingUser.content}};base64,{{pendingUser.avatar}}" height="300" width="300" alt="Image" class="avatar-img"/>
+							<div class = "card-body">
+								<h4 class = "card-text"><b>{{pendingUser.user.name}}</b></h4>
+								<img ng-if="pendingUser.gender === 'MALE'" ng-src = "images/modal/male.png" height="25" width="15"/>
+								<img ng-if="pendingUser.gender === 'FEMALE'" ng-src = "images/modal/female.png" height="25" width="15"/>
+								<p ng-if="pendingUser.bio" class = "card-text">{{pendingUser.bio}}</p>
+								<div class="row">					
+								<button type="button" class="btn btn-outline-success social-button style-center" ng-click="likePending(pendingUser.id)">
+									<img ng-src = "images/modal/thumbsup.png"/> Like 
+									</button>
+								<button type="button" class="btn btn-outline-danger social-button style-center" ng-click="rejectPending(pendingUser.id)">
+									<img ng-src = "images/modal/thumbsdown.png"/> Reject 
+									</button>	
+								</div>
+							</div>
+						</div>
+				</div>
+
+			</div>
+    	</div>
+  	</div>
+</div>

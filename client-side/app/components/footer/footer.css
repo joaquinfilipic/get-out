@@ -1,0 +1,14 @@
+/* Footer */
+
+.navbar-fixed-bottom {
+
+	color : var(--navbar-text-color);
+	font-size : var(--footer-text-size);
+	margin-bottom : 5px;
+	padding : 20px;
+}
+
+.navbar-fixed-bottom a {
+
+	color : var(--global-background);
+}

@@ -1,0 +1,90 @@
+
+	/*
+	** >>> profile.css
+	*/
+
+	/* Big Hero Screen */
+	#main-container {
+
+		background-color : var(--glass-background);
+		background-image : url("../../images/profile/background.jpg");
+		background-size : cover;
+		background-attachment : fixed;
+		min-height : 980px;
+		margin-bottom : 0px;
+	}
+
+	.list-group, .tab-content {
+
+		margin-top : 20px;
+		margin-left : 20px;
+	}
+
+	.list-group-item {
+
+		background-color : rgba(255,255,255,0.85);
+		color : black;
+	}
+
+	.subtitle {
+
+		color : rgba(64, 64, 64, 0.75);
+	}
+
+	.profile-form {
+
+		margin-left : 15px;
+		margin-right : 15px;
+		width : auto;
+	}
+
+	a.profile-form {
+
+		margin-top : 5px;
+	}
+
+	select.form-control-sm {
+
+		height : auto !important;
+	}
+
+	div.card {
+
+		width : 240px;
+		min-width : 160px;
+		max-width : 320px;
+		margin : 15px;
+	}
+
+	div.card-deck,
+	div.card-columns {
+
+		margin-left : 32px;
+		margin-bottom : 20px;
+		border-width : 0px 0px 0px 5px;
+		border-style : solid;
+		border-color : var(--profile-menu-hover);
+	}
+
+	p.card-text {
+
+		text-align : justify;
+	}
+
+	img.card-img-top {
+
+		max-width : 100%;
+	}
+
+	.global-explanation {
+
+		text-align : justify;
+		margin-left : 15px;
+		margin-right : 15px;
+	}
+
+	.group-span-filestyle > label {
+		cursor : pointer;
+	}
+
+

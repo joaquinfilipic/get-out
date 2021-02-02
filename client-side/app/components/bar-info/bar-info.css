@@ -1,0 +1,116 @@
+    @import url("//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css");
+    
+body {
+	background-image: url("../../images/bars/catalogue-background.jpg");
+	background-size: cover;
+	background-attachment: fixed;
+}
+
+.info-drop-down {
+	color: red;
+	text-align: center
+}
+
+.list-items {
+	font-family: "Varela Round", sans-serif;
+}
+
+.card-title {
+	text-align: center;
+}
+
+/*.container-fluid {
+	margin-top: 15px;
+}*/
+
+.card-20 {
+	width: 20rem;
+}
+
+.card-promo {
+	margin-bottom: 15px;
+}
+
+.card-title {
+	font-weight: 900;
+}
+
+#promoHeader {
+	text-align: center;
+	font-size: 2.2rem;
+	margin-top: 15px;
+}
+
+#map {
+	height:80vh;
+}
+
+.backgr{
+	 background-size: cover;
+     background-attachment: fixed;
+}
+
+.img-preview{
+	width: 100%;
+	height: 100%;
+}
+
+.main-img{
+	height: 100px;
+	width: 200px;
+}
+
+.header-img{
+	width: 100%;
+	height: 100%;
+}
+
+.w3-sidebar{
+	font-family: "Roboto", sans-serif;
+}
+
+.body-content{
+	max-width:1200px;
+}
+
+.nav-container{
+	z-index:3;
+	width:250px;
+	background-color: transparent;
+	
+}
+
+.d1{
+	font-weight:bold;
+}
+
+.d2{
+	margin-left:250px;
+}
+
+.d3{
+	margin-top:83px;
+}
+
+.d4{
+	padding:24px 48px;
+}
+
+.angular-google-map-container { height: 400px; }
+
+.style-edit {
+	font-family: "Roboto", sans-serif;
+	float: right;
+}
+
+.map-update-button {
+	background-color : var(--primary-button-fill);
+	border-color : var(--primary-button-border);
+	color : var(--primary-button-border);
+	font-family : "Varela Round", sans-serif;
+}
+
+.list-style {
+	list-style-type: none;
+	text-align: left;
+}

@@ -1,0 +1,139 @@
+<div class = "container">
+	<div class = "row">	
+		<div class = "col-8">
+			<form name = "userForm" novalidate>
+			<h4>{{'USER_PROFILE' | translate}}</h4>
+			<hr>
+			<h6>{{'USER_DATA' | translate}}</h6>
+			<p class = "global-explanation">
+					{{'USER_EXP' | translate}}
+			</p>
+					<div class = "container-fluid">
+						<div class = "form-group row">
+							<div class = "col-12">
+								<h6 class = "subtitle">{{'USER_NAME' | translate}}</h6>
+								<div class = "input-group">
+									<div class="input-group-prepend">
+									    <div class="input-group-text input-group-addon">
+											<img ng-src = "images/modal/name.png" alt = "Name" />
+								        </div>
+								    </div>
+									<input ng-model="nameU" class="immediate-help form-control" name-validate required type="text" placeholder="{{'PLACEHOLDER_NAME' | translate}}"/>
+									<div class="input-help">
+  										<ul>
+    										<li ng-class="nameLength">{{'NAVBAR_REGISTER_NAME_LENGTH_VALID' | translate}}</li>
+  										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class = "form-group row">
+							<div class = "col-12">
+								<h6 class = "subtitle">{{'USER_USERNAME' | translate}}</h6>
+								<div class = "input-group">
+									<div class="input-group-prepend">
+									    <div class="input-group-text input-group-addon">
+											<img ng-src = "images/modal/username.png" alt = "Username" />
+								        </div>
+								    </div>
+									<input ng-model="usernameU" class="immediate-help form-control" username-validate required type="text" placeholder="{{'PLACEHOLDER_USER' | translate}}"/>
+    								<div class="input-help">
+      									<ul>
+        									<li ng-class="pattern">{{'USER_USERNAME_V1' | translate}}</li>
+        									<li ng-class="length">{{'USER_USERNAME_V2' | translate}}</li>
+      									</ul>
+    								</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class = "form-group row">
+							<div class = "col-12">
+								<h6 class = "subtitle">{{'USER_GENDER' | translate}}</h6>
+								<div class = "input-group">
+									<div class="input-group-prepend">
+									    <div class="input-group-text input-group-addon">
+											<img ng-src = "images/modal/gender.png" alt = "Gender" />
+								        </div>
+								    </div>
+  									<select class="custom-select form-control" id="inputGenderSelect" ng-model="selectedGender" ng-options="gender for gender in genders">
+									</select>
+								</div>
+							</div>
+						</div>
+
+						<div class = "form-group row">
+							<div class = "col-12">
+								<h6 class = "subtitle">{{'USER_DESC' | translate}}</h6>
+								<div class = "input-group">
+									<div class="input-group-prepend">
+									    <div class="input-group-text input-group-addon">
+											<img ng-src = "images/modal/bio.png" alt = "Bio" />
+								        </div>
+								    </div>
+									<textarea class="immediate-help form-control" ng-model="descriptionU" aria-label="With textarea" placeholder = "{{'PLACEHOLDER_DESC' | translate}}" description-validate></textarea>
+									<div class="input-help">
+      									<ul>
+        									<li ng-class="descriptionLength">{{'USER_DESC_V1' | translate}}</li>
+      									</ul>
+    								</div>
+								</div>
+							</div>
+						</div>
+						<div class = "form-group row">
+							<div class = "col-12">
+								<h6 class = "subtitle">{{'USER_EMAIL' | translate}}</h6>
+								<div class = "input-group">
+									<div class="input-group-prepend">
+									    <div class="input-group-text input-group-addon">
+											<img ng-src = "images/modal/mail.png" alt = "Email" />
+								        </div>
+								    </div>
+									<input ng-model="emailU" class="immediate-help form-control" email-validate required type="text" placeholder="{{'PLACEHOLDER_EMAIL' | translate}}"/>
+    								<div class="input-help">
+      									<ul>
+        									<li ng-class="emailPattern">{{'USER_EMAIL_V1' | translate}}</li>
+      									</ul>
+    								</div>
+								</div>
+							</div>
+						</div>
+						<button ng-click="updateProfile(nameU, usernameU, selectedGender, descriptionU, emailU)" type="submit" class="btn-dis btn btn-outline-primary-style" ng-disabled="userForm.$invalid">{{'USER_UPDATE_PROFILE' | translate}}</button>
+					</div>
+				</form>	
+				<hr>
+				<h6>{{'USER_UPDATE_AVATAR' | translate}}</h6>
+				<p class = "global-explanation">
+					{{'USER_AVATAR_EXP' | translate}}
+				</p>
+					<div class = "container-fluid">
+
+						<div class = "form-group row">
+							<div class = "col-12">
+								
+  								<div class="custom-file">
+    								<input type="file" ng-model="file" name="file" class="custom-file-input" id="inputFile" base-sixty-four-input required maxsize="500" accept="image/*">
+    								<div ng-show="file">
+    									<label class="custom-file-label" for="inputFile">{{file.filename}}</label>
+    								</div>
+    								<div ng-show="!file">
+    									<label class="custom-file-label" for="inputFile">{{'USER_SELECT_FILE' | translate}}</label>
+    								</div>
+  								</div>
+
+  							</div>
+  						</div>
+  						<button ng-click="updateAvatar(file.base64, file.filetype)" class="btn btn-outline-primary-style" ng-disabled="!file">{{'USER_UPDATE_AVATAR' | translate}}</button>
+					</div>
+		</div>
+		<!-- Avatar Profile -->
+		<div class = "col-4">
+			<h4>{{'USER_AVATAR' | translate}}</h4>
+			<hr>
+			<div class = "card">
+				<img ng-if="!avatarLabel" class = "card-img-top" ng-src = "images/dashboard/profile-photo.png" alt = "Avatar">
+	            <img ng-if="avatarLabel" class = "card-img-top" ng-src = "data:{{contentTypeLabel}};base64,{{avatarLabel}}" alt="Avatar"/>
+			</div>
+		</div>
+	</div>
+</div>

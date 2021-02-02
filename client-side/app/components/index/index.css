@@ -1,0 +1,46 @@
+/*
+** >>> index.css
+*/
+
+/* Big Hero Screen */
+.jumbotron2 {
+
+	background-color : var(--glass-background);
+	background-image : url("../../images/index/jumbotron.png");
+	background-size : cover;
+	height : 600px;
+	margin-bottom : 0px;
+}
+
+.jumbotron-text {
+
+	background-color : var(--glass-background);
+	padding-left : 5px;
+	padding-right : 5px;
+}
+
+div.jumbotron2 img {
+
+	height : 192px;
+	margin : 50px;
+	width : 192px;;
+}
+
+.jumbotron2 a {
+
+	width : 192px;
+}
+
+.jumbotron2 p {
+
+	font-size : var(--jumbotron-text-size);
+}
+
+.page-title-index {
+	
+	font-size : var(--h1-title-size);
+	font-family : "Varela Round", sans-serif;
+	background-color : var(--glass-background);
+	padding-left : 5px;
+	padding-right : 5px;
+}

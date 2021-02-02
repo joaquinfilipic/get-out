@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang = "es-AR">
+	<head>
+		<meta charset = "UTF-8">
+		<meta name = "viewport" content = "width=device-width, initial-scale=1.0">
+		<title>GetOut©</title>
+		<link rel = "icon" type = "image/png" href = "" hrefabs = "/images/index/brand-black.png" class = "context-href">
+		<link rel = "stylesheet" type = "text/css" href = "" hrefabs = "/lib/css/normalize.css" class = "context-href">
+		<link rel = "stylesheet" type = "text/css" href = "" hrefabs = "/lib/css/main.css" class = "context-href">
+		<link rel = "stylesheet" type = "text/css" href = "" hrefabs = "/lib/css/bootstrap.css" class = "context-href">
+		<link rel = "stylesheet" type = "text/css" href = "" hrefabs = "/lib/css/angular-toastr.css" class = "context-href">
+		<link rel = "stylesheet" type = "text/css" href = "" hrefabs = "/lib/css/bootstrap-datepicker.css" class = "context-href">
+		<link rel = "stylesheet" type = "text/css" href = "" hrefabs = "/css/app.css" class = "context-href">
+		<link rel = "stylesheet" type = "text/css" href = "" hrefabs = "/css/breadcrumb-new.css" class = "context-href">
+		<link rel = "stylesheet" type = "text/css" href = "" hrefabs = "/css/form-validator.css" class = "context-href">
+		<link rel = "stylesheet" type = "text/css" href = "" hrefabs = "/css/error.css" class = "context-href">
+	</head>
+	<body>
+		<div>
+			<nav class = "nav navbar-expand-lg navbar-dark navbar-fixed-top">
+				<div class = "container-fluid">
+					<div class = "row">
+						<div class = "col-1"></div>
+						<div class = "col-3">
+							<a class = "navbar-brand context-href" href = "" hrefabs = "">
+								<img class = "d-inline-block align-middle context-src"
+									src = "" srcabs = "/images/navbar/brand-white.png"
+									alt = "GetOut© 2019" title = "GetOut© 2019"/>
+								GetOut©
+							</a>
+						</div>
+					</div>
+				</div>
+			</nav>
+			<div class = "jumbotron jumbotron-fluid">
+				<div class = container-fluid>
+					<div class = "row justify-content-center">
+						<img src="" srcabs = "/images/error/error-icon.png" alt = "GetOut© 2019" title = "GetOut© 2019" class = "context-src"/>
+					</div>
+					<div class = "row justify-content-center">
+						<h1 class = "jumbotron-text">
+							500 - Internal Server Error
+						</h1>
+					</div>
+					<div class = "row justify-content-center">
+						<p class = "jumbotron-text">
+							A severe server failure was generated. Contact an engineer.
+						</p>
+					</div>
+					<div class = "row justify-content-center">
+						<a href = "" hrefabs = "" role = "button" class = "btn btn-outline-primary context-href">
+							Return to homepage
+						</a>
+					</div>
+				</div>
+			</div>
+			<nav class = "nav navbar-dark nav-fill navbar-fixed-bottom">
+				<div class = "container-fluid">
+					<div class = "row">
+						<div class = "col-1"></div>
+						<div class = "col-1">
+							<span class = "nav-item nav-link">
+								<a href = "http://www.wtfpl.net/txt/copying/" target = "_blank">
+									LICENSE
+								</a>
+							</span>
+						</div>
+						<div class = "col-8"></div>
+					</div>
+					<div class = "row"></div>
+					<div class = "row">
+						<div class = "col-1"></div>
+						<div class = "col-4">
+							<span class = "nav-item nav-link text-left">
+								<a href = "" hrefabs = "" class = "context-href">GetOut©</a>
+								2019. All Rights Reserved.
+							</span>
+						</div>
+						<div class = "col-1"></div>
+						<div class = "col-6">
+							<span class = "nav-item nav-link">
+								© 2019
+								<a href = "https://www.itba.edu.ar/grado/ingenieria-informatica/" target = "_blank">
+									ITBA Informatic Engineering Department</a>. Buenos Aires, Argentina.
+							</span>
+						</div>
+					</div>
+				</div>
+			</nav>
+		</div>
+		<script>
+			(function (document) {
+				const context = window.location.pathname.substring(0, window.location.pathname.indexOf("/", 2));
+				const fixedHref = document.getElementsByClassName("context-href");
+				for (i = 0; i < fixedHref.length; ++i) {
+					fixedHref[i].setAttribute("href", context + fixedHref[i].getAttribute("hrefabs"));
+				}
+				const fixedSrc = document.getElementsByClassName("context-src");
+				for (i = 0; i < fixedSrc.length; ++i) {
+					fixedSrc[i].setAttribute("src", context + fixedSrc[i].getAttribute("srcabs"));
+				}
+			})(document);
+		</script>
+	</body>
+</html>

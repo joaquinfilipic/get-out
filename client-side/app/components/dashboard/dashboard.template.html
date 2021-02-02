@@ -1,0 +1,47 @@
+<div class = "card">
+	<img ng-if="!avatarLabel" class = "card-img-top" ng-src = "images/dashboard/profile-photo.png" alt = "Avatar">
+	<img ng-if="avatarLabel" class = "card-img-top" ng-src = "data:{{contentTypeLabel}};base64,{{avatarLabel}}" alt="Avatar"/>
+	<div class = "card-body">
+		<h4 class = "card-title">
+			{{nameLabel}}
+			<p>
+				<small class = "text-muted">
+					{{usernameLabel}}
+				</small>
+			</p>
+		</h4>
+		<p class = "card-text">
+			{{descriptionLabel}}
+		</p>
+
+		<ul ng-show = "hasBarsToAttend()" class = "list-group list-group-flush">
+			<li ng-repeat="attendance in attendances" class = "list-group-item">
+
+					<div class = "container-fluid">
+						<div class = "row">
+							<div class = "col-12">
+								<a href = "#!/info/{{attendance.pub.id}}" class = "dashboard-link">
+									<h5>{{attendance.pub.name}}</h5>
+								</a>
+							</div>
+						</div>
+						<div class = "row">
+							<div class = "col-8">
+								<b>{{attendance.date}} - {{attendance.pub.openTime}}</b>
+							</div>
+							<div class = "col-2">
+								<a href="#!/social/{{attendance.pub.id}}/{{attendance.date}}">
+									<span class="fa fa-users"></span>
+								</a>
+							</div>
+							<div class = "col-2">
+								<a class = "remove-attend-anchor" href="" ng-click = "dropOut(attendance.id, attendance.pub.id, attendance.date)">
+									<img ng-src = "images/dashboard/cancel-event.png" height="25" width="25" alt = "Cancel Event"/>
+								</a>
+							</div>
+						</div>
+					</div>
+			</li>
+		</ul>
+	</div>			
+</div>

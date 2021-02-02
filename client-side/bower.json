@@ -1,0 +1,42 @@
+{
+	"name": "paw-2017b-3",
+	"description": "GetOut Web Application.",
+	"homepage": "http://pawserver.it.itba.edu.ar/paw-2017b-3/",
+	"license": "MIT",
+	"authors": [
+		"Martín Biagini",
+		"Joaquín Filipic",
+		"Agustín Golmar"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://bitbucket.org/itba/paw-2017b-03/"
+	},
+	"private": true,
+	"dependencies": {
+		"angular": "^1.7.6",
+		"angular-animate": "^1.7.8",
+		"angular-base64-upload": "^0.1.23",
+		"angular-resource": "^1.7.6",
+		"angular-route": "^1.7.6",
+		"angular-toastr": "^2.1.1",
+		"bootstrap": "^4.3.1",
+		"bootstrap-datepicker": "^1.8.0",
+		"domReady": "^2.0.1",
+		"html5-boilerplate": "^6.1.0",
+		"jquery": "^3.3.1",
+		"lodash": "^4.17.11",
+		"modernizr": "^3.6.0",
+		"ngmap": "^1.18.4",
+		"ngstorage": "^0.3.11",
+		"popper.js": "^1.14.7",
+		"requirejs": "^2.3.6",
+		"angular-translate": "^2.18.1",
+		"angular-translate-loader-partial": "^2.18.1"
+	},
+	"devDependencies": {},
+	"resolutions": {
+		"angular": "^1.7.6",
+		"jquery": "^3.3.1"
+	}
+}

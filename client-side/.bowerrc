@@ -1,0 +1,8 @@
+{
+	"directory" : "bower_components",
+	"registry" : "https://registry.bower.io/",
+	"timeout" : 30000,
+	"strict-ssl" : true,
+	"color" : true,
+	"interactive" : true
+}

@@ -1,0 +1,24 @@
+{
+	"maxerr" : 50,
+	"esversion" : 6,
+
+	"bitwise" : true,
+	"curly" : true,
+	"eqeqeq" : true,
+	"forin" : true,
+	"freeze" : true,
+	"noarg" : true,
+	"strict" : true,
+	"undef" : true,
+	"unused" : true,
+
+	"browser" : true,
+	"jquery" : true,
+
+	"globals" : {
+		"angular" : false,
+		"console" : false,
+		"define" : false,
+		"require" : false
+	}
+}

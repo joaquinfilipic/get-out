@@ -1,0 +1,28 @@
+{
+	"css" : [
+		"angular-toastr/dist/angular-toastr.css",
+		"bootstrap-datepicker/dist/css/bootstrap-datepicker.css",
+		"bootstrap/dist/css/bootstrap.css",
+		"html5-boilerplate/dist/css/main.css",
+		"html5-boilerplate/dist/css/normalize.css"
+	],
+	"js" : [
+		"angular-animate/angular-animate.js",
+		"angular-base64-upload/dist/angular-base64-upload.js",
+		"angular-resource/angular-resource.min.js",
+		"angular-route/angular-route.min.js",
+		"angular-toastr/dist/angular-toastr.tpls.js",
+		"angular/angular.js",
+		"bootstrap-datepicker/dist/js/bootstrap-datepicker.js",
+		"bootstrap/dist/js/bootstrap.js",
+		"domReady/domReady.js",
+		"jquery/dist/jquery.js",
+		"lodash/dist/lodash.min.js",
+		"ngmap/build/scripts/ng-map.min.js",
+		"ngstorage/ngStorage.js",
+		"popper.js/dist/umd/popper.js",
+		"requirejs/require.js",
+		"angular-translate/angular-translate.js",
+		"angular-translate-loader-partial/angular-translate-loader-partial.js"
+	]
+}

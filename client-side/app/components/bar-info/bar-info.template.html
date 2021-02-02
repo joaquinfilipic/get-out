@@ -1,0 +1,580 @@
+<link rel = "stylesheet" type = "text/css" href = "components/bar-info/bar-info.css">
+
+<div>
+	<div class="mb-3"></div>	
+	<!-- Breadcrumb-new -->
+	<ul class="breadCrumbs">
+		<li class= "clear-list"><a href="#!/">{{'BREADCRUMB_HOME' | translate}}</a></li>
+		<li class= "clear-list darker-blue"><a href="#!/catalogue">{{'BREADCRUMB_PUBS' | translate}}</a></li>
+		<li class= "clear-list activePage"><p href="">{{'BREADCRUMB_INFO' | translate}}</p></li>
+		<div class="clear"></div>
+	</ul>
+
+
+	<!-- Page-specific Components -->
+
+	<div class = "container-fluid">
+		<div class="row">
+			<div class="col-xs-12 col-sm-6 col-md-4">
+				<div class="card card-20">
+					<img class="card-img-top" ng-src = "data:{{pub.content}};base64,{{pub.image}}" height="300" width="400" alt="Card image cap"/>
+					<button ng-if="pubOwner" class="btn btn-default style-edit" data-toggle="modal" data-target="#imageModal"><img ng-src = "images/modal/pencil.png"/></button>
+
+					<div class="card-body">
+						<h4 class="card-title">{{pub.name}}<button ng-if="pubOwner" class="btn btn-default style-edit" data-toggle="modal" data-target="#eventModal"><img ng-src = "images/modal/pencil.png"/></button></h4>
+						<p class="card-text">{{pub.description}}</p>
+						<p class="card-text"><b>{{'BAR_INFO_OPEN_TIME' | translate}}</b> {{pub.openTime}}</p>
+					</div>
+
+					<div id="accordion">
+					  <div class="card">
+					    <div class="card-header" id="headingOne">
+					      <h5 class="mb-0">
+					        <button class="btn btn-link " data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+					          {{'BAR_INFO_PUB_INFO' | translate}} 
+					        </button>
+					        <button ng-if="pubOwner" class="btn btn-default style-edit" data-toggle="modal" data-target="#infoModal"><img ng-src = "images/modal/pencil.png"/></button>
+					      </h5>
+					    </div>
+
+					    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+					      <div class="card-body">
+					        <p class="card-text"><b>{{'BAR_INFO_ADDRESS' | translate}}</b> {{pubInfo.address}}</p>
+							<p class="card-text"><b>{{'BAR_INFO_PRICE' | translate}}</b> ${{pubInfo.price}}</p>
+					      </div>
+					    </div>
+					  </div>
+					  
+					  <div class="card">
+					    <div class="card-header" id="headingTwo">
+					      <h5 class="mb-0">
+					        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+					          {{'BAR_INFO_DRINK' | translate}}
+					        </button>
+					      </h5>
+					    </div>
+					    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+					      <div class="card-body">
+					      	<ul>
+					      		<li class="list-style" ng-repeat="drink in drinks">
+						        	<div class="row">
+						        		<a class="card-text">{{drink.drink}} - ${{drink.price}}</a>
+						        		<button ng-if="pubOwner" ng-click="deleteDrink(drink.id)" class="btn btn-default style-edit"><img ng-src = "images/modal/delete.png" height="20" width="20"/></button>
+						        	</div>
+						        </li>
+						    </ul>
+						    <a ng-if="pubOwner" class="card-text"><b>{{'BAR_INFO_NEW_DRINK' | translate}}</b></a>
+				        	<button ng-if="pubOwner" class="btn btn-default style-edit" data-toggle="modal" data-target="#drinkModal"><img ng-src = "images/modal/plus.png" height="20" width="15"/></button>
+					      </div>
+					    </div>
+					  </div>
+
+					  <div class="card">
+					    <div class="card-header" id="headingThree">
+					      <h5 class="mb-0">
+					        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+					          {{'BAR_INFO_FOOD' | translate}}
+					        </button>
+					      </h5>
+					    </div>
+					    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+					      <div class="card-body">
+					      	<ul>
+					      		<li class="list-style" ng-repeat="food in foods">
+						        	<div class="row">
+						        		<a class="card-text">{{food.food}} - ${{food.price}}</a>
+						        		<button ng-if="pubOwner" ng-click="deleteFood(food.id)" class="btn btn-default style-edit"><img ng-src = "images/modal/delete.png" height="20" width="20"/></button>
+						        	</div>
+						        </li>
+						    </ul>
+						    <a ng-if="pubOwner" class="card-text"><b>{{'BAR_INFO_NEW_FOOD' | translate}}</b></a>
+				        	<button ng-if="pubOwner" class="btn btn-default style-edit" data-toggle="modal" data-target="#foodModal"><img ng-src = "images/modal/plus.png" height="20" width="15"/></button>
+					      </div>
+					    </div>
+					  </div>
+					
+					</div>
+
+					<button ng-if="pubOwner" type="button" class="clickable btn btn-outline-secondary-style" data-toggle="modal" data-target="#deletePubModal">
+						{{'BAR_INFO_DELETE_PUB' | translate}}
+					</button>
+					
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-4 col-md-7">
+
+				<div class="card">
+					<div class="card-header">
+						{{'BAR_INFO_LOCATION' | translate}}
+					</div>
+				</div>
+
+				<ng-map center="{{latitude}},{{longitude}}" zoom="{{mapZoom}}">
+			      <marker position="{{latitude}},{{longitude}}" title="Map" on-dragend="getpos($event)" 
+			        animation="Animation.BOUNCE" animation="DROP" draggable="{{pubOwner}}"></marker>
+			    </ng-map>
+				
+				<div ng-if="pubOwner" class="card" >
+				  <div class="card-body">
+				    <h5>{{'BAR_INFO_UPDATE_LOCATION' | translate}}</h5>
+				    <div class="row">
+					    <div class = "col-8">
+					    	<p class="card-text">{{'BAR_INFO_UPDATE_LOCATION_DESC' | translate}}</p>
+						</div>
+					    <div class = "col-3">
+					    	<button ng-click="updateCoordinates()" class="btn-dis btn btn-outline-primary-style">{{'BAR_INFO_UPDATE' | translate}}</button>
+					  	</div>
+					</div>
+				  </div>
+				</div>
+
+				<div class = "mt-3"></div>
+				<div class="card">
+					<div class="card-header">
+						{{'BAR_INFO_PROMOS' | translate}}
+					</div>
+					<div ng-if="pubOwner" class="card-body">
+					    <p class="card-text">{{'BAR_INFO_NEW_PROMO' | translate}}<button ng-if="pubOwner" class="btn btn-default style-edit" data-toggle="modal" data-target="#promoModal"><img ng-src = "images/modal/plus.png" height="20" width="15"/></button></p>
+					</div>
+				</div>
+				<div class = "mt-2"></div>
+				<div class="container row">
+  					<div ng-repeat="promo in promos" class="col-xs-12 col-sm-6 col-md-4">
+						<div class="card card-promo">
+							<img class="card-img-top img-thumbnail" ng-src = "images/promos/promo.png" alt="promo"/>
+							<div class="card-body">
+								<p class="card-title">{{promo.name}}</p>
+								<p class="card-text">{{promo.description}}</p>
+								<p><button ng-if="pubOwner" ng-click="deletePromo(promo.id)" class="btn btn-default style-edit"><img ng-src = "images/modal/delete.png" height="20" width="20"/></button></p>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+		<div class = "mt-3"></div>
+	</div>
+
+</div>
+
+<!-- MODALS -->
+
+<!-- Image Modal -->
+<div class="modal fade" id="imageModal"  tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+		<form name = "imageForm" novalidate>
+			<div class = "modal-header">
+				<h4 class = "modal-title">
+					{{'BAR_INFO_PUB_IMAGE' | translate}}
+				</h4>
+				<button type = "button" class = "clickable close" data-dismiss = "modal" aria-label = "Close">
+					<span aria-hidden = "true">
+						<img ng-src = "images/modal/button-close.png" alt = "Close"/>
+					</span>
+				</button>
+			</div>
+			<div class = "modal-body">
+					<div class = "container-fluid">
+						<div class = "form-group row">
+							<div class="custom-file">
+								<input type="file" ng-model="file" name="file" class="custom-file-input" id="inputFile" base-sixty-four-input required maxsize="500" accept="image/*">
+								<div ng-show="file">
+									<label class="custom-file-label" for="inputFile">{{file.filename}}</label>
+								</div>
+								<div ng-show="!file">
+									<label class="custom-file-label" for="inputFile">{{'BAR_INFO_SELECT_FILE' | translate}}</label>
+								</div>
+								</div>
+							</div>
+					</div>
+			</div>
+			<div class = "modal-footer">
+				<div class = "container-fluid">
+					<div class = "row justify-content-center">
+						<div class = "col-6">	
+							<button type = "button" data-dismiss="modal" class = "clickable btn btn-outline-secondary-style" aria-label="Close">{{'BAR_INFO_CANCEL' | translate}}</button>
+						</div>
+						<div class = "col-6">
+	    					<button ng-click="editPubImage(file.base64, file.filetype)" data-dismiss="modal" type="submit" class="btn-dis btn btn-outline-primary-style" ng-disabled="imageForm.$invalid">{{'BAR_INFO_UPDATE' | translate}}</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+    </div>
+  </div>
+</div>
+
+<!-- Event Modal -->
+<div class="modal fade" id="eventModal"  tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+		<form name = "eventForm" novalidate>
+			<div class = "modal-header">
+				<h4 class = "modal-title">
+					{{'BAR_INFO_EVENT_DATA' | translate}}
+				</h4>
+				<button type = "button" class = "clickable close" data-dismiss = "modal" aria-label = "Close">
+					<span aria-hidden = "true">
+						<img ng-src = "images/modal/button-close.png" alt = "Close"/>
+					</span>
+				</button>
+			</div>
+			<div class = "modal-body">
+					<div class = "container-fluid">
+						
+						<div class = "form-group row">
+							<div class = "col-12">
+								<div class = "input-group">
+									<input bar-name-validate required ng-model="name" class="immediate-help form-control" type="text" placeholder="{{'PLACEHOLDER_NAME' | translate}}"/>
+									<div class="input-help">
+      									<ul>
+        									<li ng-class="pattern">{{'BAR_INFO_EVENT_DATA_V1' | translate}}</li>
+        									<li ng-class="length">{{'BAR_INFO_EVENT_DATA_V2' | translate}}Entre 2 y 20 caracteres</li>
+      									</ul>
+    								</div>
+								</div>
+								<div class = "form-text text-muted font-input-help">{{'BAR_INFO_PUB_NAME' | translate}}</div>
+							</div>
+						</div>
+						<div class = "form-group row">
+							<div class = "col-12">
+								<div class = "input-group">
+									<input bar-description-validate required ng-model="description" class="immediate-help form-control" type="text" placeholder="{{'PLACEHOLDER_DESC' | translate}}"/>
+									<div class="input-help">
+      									<ul>
+        									<li ng-class="descriptionLength">{{'BAR_INFO_PUB_NAME_V1' | translate}}</li>
+      									</ul>
+    								</div>
+								</div>
+								<div class = "form-text text-muted font-input-help">{{'BAR_INFO_DESC' | translate}}</div>
+							</div>
+						</div>
+						<div class = "form-group row">
+							<div class = "col-12">
+								<div class = "input-group">
+									<input bar-time-validate required ng-model="time" class="immediate-help form-control" type="text" placeholder="{{'PLACEHOLDER_TIME' | translate}}"/>
+									<div class="input-help">
+      									<ul>
+        									<li ng-class="timePattern">{{'BAR_INFO_DESC_V1' | translate}}</li>
+      									</ul>
+    								</div>
+								</div>
+								<div class = "form-text text-muted font-input-help">{{'BAR_INFO_OPEN_TIME_MODAL' | translate}}</div>
+							</div>
+						</div>
+					</div>
+			</div>
+			<div class = "modal-footer">
+				<div class = "container-fluid">
+					<div class = "row justify-content-center">
+						<div class = "col-6">	
+							<button type = "button" data-dismiss="modal" class = "clickable btn btn-outline-secondary-style" aria-label="Close">{{'BAR_INFO_CANCEL' | translate}}</button>
+						</div>
+						<div class = "col-6">
+	    					<button ng-click="editPubPrimaryInfo(name, description, time)" data-dismiss="modal" type="submit" class="btn-dis btn btn-outline-primary-style" ng-disabled="eventForm.$invalid">{{'BAR_INFO_UPDATE' | translate}}</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+    </div>
+  </div>
+</div>		
+
+<!-- Info Modal -->
+<div class="modal fade" id="infoModal"  tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+		<form name = "infoForm" novalidate>
+			<div class = "modal-header">
+				<h4 class = "modal-title">
+					{{'BAR_INFO_PUB_INFO_MODAL' | translate}}
+				</h4>
+				<button type = "button" class = "clickable close" data-dismiss = "modal" aria-label = "Close">
+					<span aria-hidden = "true">
+						<img ng-src = "images/modal/button-close.png" alt = "Close"/>
+					</span>
+				</button>
+			</div>
+			<div class = "modal-body">
+					<div class = "container-fluid">
+						
+						<div class = "form-group row">
+							<div class = "col-12">
+								<div class = "input-group">
+									<input bar-address-validate required ng-model="address" class="immediate-help form-control" type="text" id="address" placeholder="{{'PLACEHOLDER_ADDRESS' | translate}}"/>
+									<div class="input-help">
+	      								<ul>
+	        								<li ng-class="addressLength">{{'BAR_INFO_PUB_INFO_ADDRESS_V1' | translate}}</li>
+	      								</ul>
+	    							</div>
+								</div>
+								<div class = "form-text text-muted font-input-help">{{'BAR_INFO_PUB_INFO_ADDRESS' | translate}}</div>
+							</div>
+						</div>
+						<div class = "form-group row">
+							<div class = "col-12">
+								<div class = "input-group">
+									<input bar-price-validate required ng-model="price" class="immediate-help form-control" type="text" id="price" placeholder="{{'PLACEHOLDER_PRICE' | translate}}"/>
+									<div class="input-help">
+	      								<ul>
+	        								<li ng-class="pricePattern">{{'BAR_INFO_PUB_INFO_PRICE_V1' | translate}}</li>
+	        								<li ng-class="priceLength">{{'BAR_INFO_PUB_INFO_PRICE_V2' | translate}}</li>
+	      								</ul>
+	    							</div>
+								</div>
+								<div class = "form-text text-muted font-input-help">{{'BAR_INFO_PUB_INFO_PRICE' | translate}}</div>
+							</div>
+						</div>
+					</div>
+			</div>
+			<div class = "modal-footer">
+				<div class = "container-fluid">
+					<div class = "row justify-content-center">
+						<div class = "col-6">	
+							<button type = "button" data-dismiss="modal" class = "clickable btn btn-outline-secondary-style" aria-label="Close">{{'BAR_INFO_CANCEL' | translate}}</button>
+						</div>
+						<div class = "col-6">
+	    					<button ng-click="editPubSecondaryInfo(address, price)" data-dismiss="modal" type="submit" class="btn-dis btn btn-outline-primary-style" ng-disabled="infoForm.$invalid">{{'BAR_INFO_UPDATE' | translate}}</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+    </div>
+  </div>
+</div>	
+
+<!-- Deletion Modal -->
+<div class="modal fade" id="deletePubModal"  tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+		<form name = "loginForm" novalidate>
+			<div class = "modal-header">
+				<h4 class = "modal-title">
+					{{'BAR_INFO_DELETE_PUB_MODAL' | translate}}
+				</h4>
+				<button type = "button" class = "clickable close" data-dismiss = "modal" aria-label = "Close">
+					<span aria-hidden = "true">
+						<img ng-src = "images/modal/button-close.png" alt = "Close"/>
+					</span>
+				</button>
+			</div>
+			<div class = "modal-body">
+				<div>
+					<p>{{'BAR_INFO_DELETE_PUB_WARN' | translate}}</p>
+				</div>
+				<div>
+					<p><b>{{'BAR_INFO_DELETE_PUB_QUESTION' | translate}}</b></p>
+				</div>
+			</div>
+			<div class = "modal-footer">
+				<div class = "container-fluid">
+					<div class = "row justify-content-center">
+						<div class = "col-6">	
+							<button type = "button" data-dismiss="modal" class = "clickable btn btn-outline-secondary-style" aria-label="Close">{{'BAR_INFO_DELETE_PUB_CANCEL' | translate}}</button>
+						</div>
+						<div class = "col-6">
+	    					<button ng-click="deletePub()" data-dismiss="modal" type="submit" class=" btn btn-outline-primary-style">{{'BAR_INFO_DELETE_PUB_OK' | translate}}</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+    </div>
+  </div>
+</div>
+
+<!-- Food Modal -->
+<div class="modal fade" id="foodModal"  tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+		<form name = "foodForm" novalidate>
+			<div class = "modal-header">
+				<h4 class = "modal-title">
+					{{'BAR_INFO_FOOD' | translate}}
+				</h4>
+				<button type = "button" class = "clickable close" data-dismiss = "modal" aria-label = "Close">
+					<span aria-hidden = "true">
+						<img ng-src = "images/modal/button-close.png" alt = "Close"/>
+					</span>
+				</button>
+			</div>
+			<div class = "modal-body">
+					<div class = "container-fluid">
+						
+						<div class = "form-group row">
+							<div class = "col-12">
+								<div class = "input-group">
+									<input bar-address-validate required ng-model="foodName" class="immediate-help form-control" type="text"placeholder="{{'PLACEHOLDER_NAME' | translate}}"/>
+									<div class="input-help">
+	      								<ul>
+	        								<li ng-class="addressLength">{{'BAR_INFO_FOOD_V1' | translate}}</li>
+	      								</ul>
+	    							</div>
+								</div>
+								<div class = "form-text text-muted font-input-help">{{'BAR_INFO_FOOD_NAME' | translate}}</div>
+							</div>
+						</div>
+						<div class = "form-group row">
+							<div class = "col-12">
+								<div class = "input-group">
+									<input bar-price-validate required ng-model="foodPrice" class="immediate-help form-control" type="text"placeholder="{{'PLACEHOLDER_PRICE' | translate}}"/>
+									<div class="input-help">
+	      								<ul>
+	        								<li ng-class="pricePattern">{{'BAR_INFO_FOOD_V2' | translate}}</li>
+	        								<li ng-class="priceLength">{{'BAR_INFO_FOOD_V3' | translate}}</li>
+	      								</ul>
+	    							</div>
+								</div>
+								<div class = "form-text text-muted font-input-help">{{'BAR_INFO_FOOD_PRICE' | translate}}</div>
+							</div>
+						</div>
+					</div>
+			</div>
+			<div class = "modal-footer">
+				<div class = "container-fluid">
+					<div class = "row justify-content-center">
+						<div class = "col-6">	
+							<button type = "button" data-dismiss="modal" class = "clickable btn btn-outline-secondary-style" aria-label="Close">{{'BAR_INFO_CANCEL' | translate}}</button>
+						</div>
+						<div class = "col-6">
+	    					<button ng-click="createFood(foodName, foodPrice)" data-dismiss="modal" type="submit" class="btn-dis btn btn-outline-primary-style" ng-disabled="foodForm.$invalid">{{'BAR_INFO_ADD' | translate}}</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+    </div>
+  </div>
+</div>
+
+<!-- Drink Modal -->
+<div class="modal fade" id="drinkModal"  tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+		<form name = "drinkForm" novalidate>
+			<div class = "modal-header">
+				<h4 class = "modal-title">
+					{{'BAR_INFO_DRINK' | translate}}
+				</h4>
+				<button type = "button" class = "clickable close" data-dismiss = "modal" aria-label = "Close">
+					<span aria-hidden = "true">
+						<img ng-src = "images/modal/button-close.png" alt = "Close"/>
+					</span>
+				</button>
+			</div>
+			<div class = "modal-body">
+					<div class = "container-fluid">
+						
+						<div class = "form-group row">
+							<div class = "col-12">
+								<div class = "input-group">
+									<input bar-address-validate required ng-model="drinkName" class="immediate-help form-control" type="text"placeholder="{{'PLACEHOLDER_NAME' | translate}}"/>
+									<div class="input-help">
+	      								<ul>
+	        								<li ng-class="addressLength">{{'BAR_INFO_DRINK_V1' | translate}}</li>
+	      								</ul>
+	    							</div>
+								</div>
+								<div class = "form-text text-muted font-input-help">{{'BAR_INFO_DRINK_NAME' | translate}}</div>
+							</div>
+						</div>
+						<div class = "form-group row">
+							<div class = "col-12">
+								<div class = "input-group">
+									<input bar-price-validate required ng-model="drinkPrice" class="immediate-help form-control" type="text"placeholder="{{'PLACEHOLDER_PRICE' | translate}}"/>
+									<div class="input-help">
+	      								<ul>
+	        								<li ng-class="pricePattern">{{'BAR_INFO_DRINK_V2' | translate}}</li>
+	        								<li ng-class="priceLength">{{'BAR_INFO_DRINK_V3' | translate}}</li>
+	      								</ul>
+	    							</div>
+								</div>
+								<div class = "form-text text-muted font-input-help">{{'BAR_INFO_DRINK_PRICE' | translate}}</div>
+							</div>
+						</div>
+					</div>
+			</div>
+			<div class = "modal-footer">
+				<div class = "container-fluid">
+					<div class = "row justify-content-center">
+						<div class = "col-6">	
+							<button type = "button" data-dismiss="modal" class = "clickable btn btn-outline-secondary-style" aria-label="Close">{{'BAR_INFO_CANCEL' | translate}}</button>
+						</div>
+						<div class = "col-6">
+	    					<button ng-click="createDrink(drinkName, drinkPrice)" data-dismiss="modal" type="submit" class="btn-dis btn btn-outline-primary-style" ng-disabled="drinkForm.$invalid">{{'BAR_INFO_ADD' | translate}}</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+    </div>
+  </div>
+</div>
+
+<!-- Promo Modal -->
+<div class="modal fade" id="promoModal"  tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+		<form name = "promoForm" novalidate>
+			<div class = "modal-header">
+				<h4 class = "modal-title">
+					{{'BAR_INFO_PROMO_MODAL' | translate}}
+				</h4>
+				<button type = "button" class = "clickable close" data-dismiss = "modal" aria-label = "Close">
+					<span aria-hidden = "true">
+						<img ng-src = "images/modal/button-close.png" alt = "Close"/>
+					</span>
+				</button>
+			</div>
+			<div class = "modal-body">
+					<div class = "container-fluid">
+						
+						<div class = "form-group row">
+							<div class = "col-12">
+								<div class = "input-group">
+									<input bar-address-validate required ng-model="promoName" class="immediate-help form-control" type="text"placeholder="{{'PLACEHOLDER_NAME' | translate}}"/>
+									<div class="input-help">
+	      								<ul>
+	        								<li ng-class="addressLength">{{'BAR_INFO_PROMO_V1' | translate}}</li>
+	      								</ul>
+	    							</div>
+								</div>
+								<div class = "form-text text-muted font-input-help">{{'BAR_INFO_PROMO_NAME' | translate}}</div>
+							</div>
+						</div>
+						<div class = "form-group row">
+							<div class = "col-12">
+								<div class = "input-group">
+									<input bar-address-validate required ng-model="promoDescription" class="immediate-help form-control" type="text"placeholder="{{'PLACEHOLDER_DESC' | translate}}"/>
+									<div class="input-help">
+	      								<ul>
+	        								<li ng-class="addressLength">{{'BAR_INFO_PROMO_V2' | translate}}</li>
+	      								</ul>
+	    							</div>
+								</div>
+								<div class = "form-text text-muted font-input-help">{{'BAR_INFO_PROMO_DESC' | translate}}</div>
+							</div>
+						</div>
+					</div>
+			</div>
+			<div class = "modal-footer">
+				<div class = "container-fluid">
+					<div class = "row justify-content-center">
+						<div class = "col-6">	
+							<button type = "button" data-dismiss="modal" class = "clickable btn btn-outline-secondary-style" aria-label="Close">{{'BAR_INFO_CANCEL' | translate}}</button>
+						</div>
+						<div class = "col-6">
+	    					<button ng-click="createPromo(promoName, promoDescription)" data-dismiss="modal" type="submit" class="btn-dis btn btn-outline-primary-style" ng-disabled="promoForm.$invalid">{{'BAR_INFO_ADD' | translate}}</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,101 @@
+<div class = "container">
+		<div class = "row">
+		<form name = "accountForm" novalidate>
+			<div class = "col-8">
+				<h4>{{'ACCOUNT_TITLE' | translate}}</h4>
+				<hr>
+				<h6>{{'ACCOUNT_MOD_PASS' | translate}}</h6>
+				<p class = "global-explanation">
+					{{'ACCOUNT_MOD_PASS_DESC' | translate}}
+				</p>
+					<div class = "container-fluid">
+						<div class = "form-group row">
+							<div class = "col-12">
+								<h6 class = "subtitle">{{'ACCOUNT_PASS' | translate}}</h6>
+								<div class = "input-group">
+									<div class="input-group-prepend">
+									    <div class="input-group-text input-group-addon">
+											<img ng-src = "images/modal/password.png" alt = "Password" />
+								        </div>
+								    </div>
+									<input ng-model="passwordA" class="immediate-help form-control"  required password-validate type="password" id="accountPassword" placeholder="{{'PLACEHOLDER_PASS' | translate}}"/>
+    								<div class="input-help">
+      									<ul>
+        									<li ng-class="pwdValidLength">{{'ACCOUNT_PASS_VALIDATION' | translate}}</li>
+      									</ul>
+    								</div>
+								</div>
+							</div>
+						</div>
+						<div class = "form-group row">
+							<div class = "col-12">
+								<h6 class = "subtitle">{{'ACCOUNT_REP_PASS' | translate}}</h6>
+								<div class = "input-group">
+									<div class="input-group-prepend">
+									    <div class="input-group-text input-group-addon">
+											<img ng-src = "images/modal/repeat.png" alt = "Repeat" />
+								        </div>
+								    </div>
+									<input ng-model="repeatPasswordA" path = "repeatPassword" class="immediate-help form-control" compare-to="passwordA" required type="password" id="repeatAccountPassword" placeholder="{{'PLACEHOLDER_PASS_REPEAT' | translate}}"/>
+								</div>
+								<div id = "repeat-errors"></div>
+							</div>
+						</div>
+						<button ng-click="updatePassword(passwordA)" type="submit" class="btn-dis btn btn-outline-primary-style" ng-disabled="accountForm.$invalid">{{'ACCOUNT_UPDATE_PASS' | translate}}</button>
+					</div>
+				<hr>
+				<h6>{{'ACCOUNT_DELETE' | translate}}</h6>
+				<p class = "global-explanation">
+					{{'ACCOUNT_DELETE_DESC' | translate}}
+				</p>
+				<div class = "container-fluid">
+					<button type="button" class="clickable btn btn-outline-secondary-style" data-toggle="modal" data-target="#deleteModal">
+						{{'ACCOUNT_DELETE' | translate}}
+					</button>
+
+					<!-- Modal -->
+					<div class="modal fade" id="deleteModal"  tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+					  <div class="modal-dialog modal-dialog-centered" role="document">
+					    <div class="modal-content">
+							<form name = "loginForm" novalidate>
+								<div class = "modal-header">
+									<h4 class = "modal-title">
+										{{'ACCOUNT_DELETE' | translate}}
+									</h4>
+									<button type = "button" class = "clickable close" data-dismiss = "modal" aria-label = "Close">
+										<span aria-hidden = "true">
+											<img ng-src = "images/modal/button-close.png" alt = "Close"/>
+										</span>
+									</button>
+								</div>
+								<div class = "modal-body">
+									<div>
+										<p>{{'ACCOUNT_DELETE_WARN' | translate}}</p>
+									</div>
+									<div>
+										<p><b>{{'ACCOUNT_DELETE_QUESTION' | translate}}</b></p>
+									</div>
+								</div>
+								<div class = "modal-footer">
+									<div class = "container-fluid">
+										<div class = "row justify-content-center">
+											<div class = "col-6">	
+												<button type = "button" data-dismiss="modal" class = "clickable btn btn-outline-secondary-style" aria-label="Close">{{'ACCOUNT_DELETE_CANCEL' | translate}}</button>
+											</div>
+											<div class = "col-6">
+						    					<button ng-click="deleteAccount()" data-dismiss="modal" type="submit" class=" btn btn-outline-primary-style">{{'ACCOUNT_DELETE_OK' | translate}}</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</form>
+					    </div>
+					  </div>
+					</div>
+
+				</div>
+			</div>
+		</form>
+		<div class = "col-4"></div>
+	</div>
+</div>

@@ -1,0 +1,30 @@
+<link rel = "stylesheet" type = "text/css" href = "components/catalogue/catalogue.css">
+
+<div>
+	<div id="catalogue-general" class = "container-fluid">
+
+		<div class="mb-3"></div>
+		<!-- Breadcrumb-new -->
+		<ul class="breadCrumbs">
+			<li class= "clear-list"><a href="#!/">{{'BREADCRUMB_HOME' | translate}}</a></li>
+			<li class= "clear-list activePage"><p href="">{{'BREADCRUMB_PUBS' | translate}}</p></li>
+			<div class="clear"></div>
+		</ul>
+
+				
+		<!-- Page-specific Components -->
+
+		<div class = "container-fluid">
+			<div class="row">
+				<div class="col-xs-12 col-sm-8 col-md-8">
+					<bars-list></bars-list>	
+				</div>
+				<div class = "col-md-4" ng-if = "isAuthenticated">
+					<div class = "mt-2"></div>
+					<dashboard></dashboard>
+				</div>
+			</div>
+		</div>
+		<div class = "mt-3"></div>
+	</div>
+</div>

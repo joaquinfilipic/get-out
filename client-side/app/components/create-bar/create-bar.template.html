@@ -1,0 +1,114 @@
+<link rel = "stylesheet" type = "text/css" href = "components/create-bar/create-bar.css">
+
+<div>
+	<div class = "container-fluid" id = "main-container">
+		<!-- List Group -->
+		<div class = "row">
+				
+				<div class = "container">
+					
+					<div class="row mt-3"> 
+						<h4>{{'CREATE_PUB_ADD_PUB' | translate}}</h4>
+					</div>
+					<hr>
+
+					<form name = "createBarForm" novalidate>
+						<div class = "row">
+
+							<div class="col-5">
+								<h6>{{'CREATE_PUB_ADD_PUB_INFO' | translate}}</h6>
+								<div class = "container-fluid">
+									<div class = "form-group row">
+										<div class = "col">
+											<h6 class = "subtitle">{{'CREATE_PUB_NAME' | translate}}</h6>
+											<div class="input-group">
+						            			<div class="input-group-prepend">
+												    <div class="input-group-text input-group-addon">
+														<img ng-src = "images/modal/text-size-white.png" alt = "Name" />
+											        </div>
+											    </div>
+						                		<input ng-model="nameB" class="immediate-help form-control" bar-name-validate required type="text" placeholder="{{'PLACEHOLDER_NAME' | translate}}"/>
+						                		<div class="input-help">
+			      									<ul>
+			        									<li ng-class="pattern">{{'CREATE_PUB_V1' | translate}}</li>
+			        									<li ng-class="length">{{'CREATE_PUB_V2' | translate}}</li>
+			      									</ul>
+			    								</div>
+						            		</div>
+										</div>
+									</div>
+									<div class = "form-group row">
+										<div class = "col">
+											<h6 class = "subtitle">{{'CREATE_PUB_DESC' | translate}}</h6>
+											<div class = "input-group">
+												<div class="input-group-prepend">
+												    <div class="input-group-text input-group-addon">
+														<img ng-src = "images/modal/comment-white.png" alt = "Description" />
+											        </div>
+											    </div>
+												<textarea class="immediate-help form-control" ng-model="descriptionB" aria-label="With textarea" placeholder = "{{'PLACEHOLDER_DESC' | translate}}" bar-description-validate></textarea>
+												<div class="input-help">
+			      									<ul>
+			        									<li ng-class="descriptionLength">{{'CREATE_PUB_V3' | translate}}</li>
+			      									</ul>
+			    								</div>
+											</div>
+										</div>
+									</div>
+									<div class = "form-group row">
+										<div class = "col">
+											<h6 class = "subtitle">{{'CREATE_PUB_OPEN_TIME' | translate}}</h6>
+											<div class = "input-group ">
+												<div class="input-group-prepend">
+												    <div class="input-group-text input-group-addon">
+														<img ng-src = "images/modal/clock-white.png" alt = "Time" />
+											        </div>
+											    </div>
+												<input ng-model="timeB" class="immediate-help form-control" bar-time-validate required type="text" placeholder="{{'PLACEHOLDER_OPEN_TIME' | translate}}"/>
+			    								<div class="input-help">
+			      									<ul>
+			        									<li ng-class="timePattern">{{'CREATE_PUB_V4' | translate}}</li>
+			      									</ul>
+			    								</div>
+											</div>
+										</div>
+									</div>
+								</div>	
+							</div>	
+							<div class="col-5">
+								<h6>{{'CREATE_PUB_SELECT_IMAGE' | translate}}</h6>
+								<div class = "container-fluid">
+									<div class = "form-group row">
+										<div class = "col">
+											<h6 class = "subtitle">{{'CREATE_PUB_IMAGE' | translate}}</h6>
+											<div class="custom-file">
+			    								<input type="file" ng-model="file" name="file" class="custom-file-input" id="inputFile" base-sixty-four-input required  maxsize="500" accept="image/*">
+			    								<div ng-show="file">
+			    									<label class="custom-file-label" for="inputFile">{{file.filename}}</label>
+			    								</div>
+			    								<div ng-show="!file">
+			    									<label class="custom-file-label" for="inputFile">{{'CREATE_PUB_SELECT_FILE' | translate}}</label>
+			    								</div>
+			  								</div>
+			  							</div>
+			  						</div>
+			  						
+			  						<div class = "form-group row" ng-show="file">
+										<div class = "col">
+											<h6 class = "subtitle">{{'CREATE_PUB_VIEW' | translate}}</h6>
+												<img ng-src = "data:image/png;base64,{{file.base64}}" height="144" width="144" alt="Bar Image"/>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-2 ">
+								<h6>{{'CREATE_PUB_ADD_PUB_TO_CATALOGUE' | translate}}</h6>
+								<button ng-click="createBar(nameB, descriptionB, timeB, file.base64, file.filetype)" type="submit" class="mt-2 btn-dis btn btn-outline-secondary-style btn-dis" ng-disabled="createBarForm.$invalid">{{'CREATE_PUB_ADD_PUB' | translate}}</button>
+							</div>
+
+						</div>
+					</form>
+				</div>
+		</div>
+	</div>	
+</div>

@@ -1,0 +1,175 @@
+/*
+** >>> root.css
+*/
+
+/* Fonts */
+@import url("https://fonts.googleapis.com/css?family=Varela+Round");
+@import url('https://fonts.googleapis.com/css?family=Montserrat+Alternates');
+
+:root {
+
+	/* Palette */
+	--glass-background			: rgba(255,		255,	255,	0.35);
+	--global-background			: rgba(255,		175,	15,		1.0);
+	--navbar-background			: rgba(52,		48,		45,		1.0);
+	--navbar-text-color			: rgba(255,		255,	255,	1.0);
+	--primary-button-border		: rgba(0,		123,	255,	1.0);
+	--primary-button-fill		: rgba(255,		255,	255,	0.65);
+	--secondary-button-border	: rgba(255,		106,	0,		1.0);
+	--secondary-button-fill		: rgba(255,		106,	0,		0.65);
+	--validation-error			: rgba(255,		106,	0,		0.85);
+	--input-valid-border		: rgba(64,		200,	0,		1.0);
+	--input-valid-background	: rgba(64,		200,	0,		0.05);
+	--input-invalid-border		: rgba(255,		64,		64,		1.0);
+	--input-invalid-background	: rgba(255,		64,		64,		0.05);
+	--profile-menu				: rgba(32,		32,		32,		1.0);
+	--profile-menu-hover		: rgba(255,		106,	0,		1.0);
+	--logout-text				: rgba(32,		32,		32,		0.5);
+
+	/* Font Sizes */
+	--brand-text-size : 32px;
+	--footer-text-size : 14px;
+	--jumbotron-text-size : 24px;
+	--paragraph-text-size : 14px;
+
+	/* Header Sizes */
+	--h1-title-size : 60px;
+	--h2-title-size : 42px;
+	--h3-title-size : 28px;
+	--h4-title-size : 24px;
+	--h5-title-size : 20px;
+	--h6-title-size : 16px;
+}
+
+/* Global Tags */
+body {
+
+	font-family : "Varela Round", sans-serif;
+	background-color : var(--global-background);
+}
+
+h1 {font-size : var(--h1-title-size);}
+h2 {font-size : var(--h2-title-size);}
+h3 {font-size : var(--h3-title-size);}
+h4 {font-size : var(--h4-title-size);}
+h5 {font-size : var(--h5-title-size);}
+h6 {font-size : var(--h6-title-size);}
+
+label {
+
+	margin : 0px;
+}
+
+nav {
+
+	background-color : var(--navbar-background);
+}
+
+p {
+
+	font-family : "Montserrat Alternates", sans-serif;
+	font-size : var(--paragraph-text-size);
+}
+
+/* Specific Targets */
+#remember {
+
+	margin-right : 0px;
+	padding-right : 0px;
+}
+
+/* Global Classes */
+.btn-outline-primary-style {
+
+	background-color : var(--primary-button-fill);
+	border-color : var(--primary-button-border);
+	color : var(--primary-button-border);
+	font-family : "Varela Round", sans-serif;
+	width : 100%;
+}
+
+.btn-outline-secondary-style {
+
+	background-color : var(--secondary-button-fill);
+	border-color : var(--secondary-button-border);
+	color : var(--navbar-text-color);
+	font-family : "Varela Round", sans-serif;
+	width : 100%;
+}
+
+.btn-outline-primary-style:disabled {
+
+	background-color : rgba(160, 160, 160, 1.0);
+	border-color : rgba(255, 255, 255, 1.0);
+	color : rgba(255, 255, 255, 1.0);
+}
+
+.btn-outline-secondary-style:disabled {
+
+	color : rgba(255, 255, 255, 1.0);
+}
+
+.btn-outline-primary-style:hover:enabled {
+
+	color : rgba(255, 255, 255, 1.0);
+	background-color : var(--primary-button-border);
+}
+
+.btn-outline-secondary-style:hover:enabled {
+
+	background-color : var(--secondary-button-border);
+	border-color : var(--secondary-button-border);
+}
+
+.form-error {
+
+	color : var(--validation-error);
+}
+
+.input-group-addon {
+
+	background-color : var(--navbar-background);
+}
+
+/* Icons */
+a.navbar-brand img {
+
+	height : 60px;
+	width : 60px;
+}
+
+button.close img {
+
+	height : 25px;
+	width : 25px;
+}
+
+div.alert-warning img {
+
+	height : 35px;
+	margin-right : 15px;
+	width : 35px;
+}
+
+div.input-group-addon img {
+
+	height : 20px;
+	width : 20px;
+}
+
+/* Modals */
+.modal-footer {
+
+	background-color : var(--navbar-background);
+	border-radius : 0px 0px 4px 4px;
+}
+
+.modal-footer button {
+
+	margin : 0px;
+}
+
+.modal-link {
+
+	color : var(--validation-error);
+}

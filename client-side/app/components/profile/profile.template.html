@@ -1,0 +1,31 @@
+<link rel = "stylesheet" type = "text/css" href = "components/profile/profile.css">
+
+<div>
+	<div class = "container-fluid" id = "main-container">
+		<!-- List Group -->
+		<div class = "row">
+			<div class = "col-3">
+				<div class = "list-group" id = "list-tab" role = "tablist" data-active = "${param.activate}">
+					<a ng-click="showUser()" type = "button" class = "{{profileComponent === 'user' ? 'active' : ''}} list-group-item list-group-item-action" id = "list-profile-list" data-toggle = "list" role = "tab" aria-controls = "profile">{{'PROFILE_PROFILE' | translate}}</a>
+					<a ng-click="showAccount()" type = "button" class = "{{profileComponent === 'account' ? 'active' : ''}} list-group-item list-group-item-action" id = "list-account-list" data-toggle = "list" role = "tab" aria-controls = "account">{{'PROFILE_ACCOUNT' | translate}}</a>
+					<a ng-click="showPending()" type = "button" class = "{{profileComponent === 'pending' ? 'active' : ''}} list-group-item list-group-item-action" id = "list-pendings-list" data-toggle = "list" role = "tab" aria-controls = "pendings">{{'PROFILE_PENDINGS' | translate}}</a>
+				</div>
+			</div>
+			<div class = "col-9">
+				<div class = "tab-content" id = "nav-tabContent">
+					<div class = "tab-pane fade show active" id = "list-profile" role = "tabpanel" aria-labelledby = "list-profile-list">
+						<div ng-if="profileComponent == 'user'">
+  							<user></user>
+						</div>
+						<div ng-if="profileComponent == 'account'">
+  							<account></account>
+						</div>
+						<div ng-if="profileComponent == 'pending'">
+  							<pending></pending>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,288 @@
+<link rel = "stylesheet" type = "text/css" href = "components/navbar/navbar.css">
+
+<!--Contiene la barra de navegacion principal-->	
+<nav class = "navbar-expand-lg mt-1 mb-0 navbar-dark">
+	<div class = "container-fluid">
+		<div class = "row align-items-center">
+			<div class = "col-1"></div>
+			<div class = "col-3">
+				<a class = "navbar-brand" href = "#!/">
+					<img class = "d-inline-block align-middle" ng-src = "images/navbar/brand-white.png" alt = "GetOut logo white"/>
+					GetOut©
+				</a>
+			</div>
+			<div class = "col-3">
+			</div>
+			<div class = "col-2 align-self-center">
+				<div ng-show = "!isAuthenticated">
+
+					<!-- Button trigger modal -->
+					<button type="button" class="clickable btn btn-outline-primary-style" data-toggle="modal" data-target="#loginModal">
+					  {{'NAVBAR_LOGIN' | translate}}
+					</button>
+					<!-- Modal -->
+					<div class="modal fade" id="loginModal"  tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+					  <div class="modal-dialog modal-dialog-centered" role="document">
+					    <div class="modal-content">
+							<form name = "loginForm" novalidate>
+								<div class = "modal-header">
+									<h4 class = "modal-title">
+										{{'NAVBAR_LOGIN' | translate}}
+									</h4>
+									<button type = "button" class = "clickable close" data-dismiss = "modal" aria-label = "Close">
+										<span aria-hidden = "true">
+											<img ng-src = "images/modal/button-close.png" alt = "Close"/>
+										</span>
+									</button>
+								</div>
+								<div class = "modal-body">
+									<div>
+										<p>{{'NAVBAR_LOGIN_CREDENTIALS' | translate}}</p>
+									</div>
+										<div class = "container-fluid">
+											<div class = "form-group row">
+												<div class = "col-12">
+													<div class = "input-group">														
+														<div class="input-group-prepend">
+														    <div class="input-group-text input-group-addon">
+																<img ng-src = "images/modal/username.png" alt = "Username" />
+														    </div>
+														</div>
+														<input ng-model="username" class="immediate-help form-control" username-validate required type="text" id="inputUsername" placeholder="{{'PLACEHOLDER_USER' | translate}}"/>
+						    							<div class="input-help">
+						      								<ul>
+						        								<li ng-class="pattern">{{'NAVBAR_LOGIN_V1' | translate}}</li>
+						        								<li ng-class="length">{{'NAVBAR_LOGIN_V2' | translate}}</li>
+						      								</ul>
+						    							</div>
+													</div>
+													<div class = "form-text text-muted font-input-help">{{'NAVBAR_LOGIN_NAME' | translate}}</div>
+												</div>
+											</div>
+
+											<div class = "form-group row">
+												<div class = "col-12">
+													<div class = "input-group">
+														<div class="input-group-prepend">
+														    <div class="input-group-text input-group-addon">
+																<img ng-src = "images/modal/password.png" alt = "Password" />
+													        </div>
+													    </div>
+														<input ng-model="password" class="immediate-help form-control" password-validate required type="password" id="loginPassword" placeholder="{{'PLACEHOLDER_PASS' | translate}}"/>
+						    								<div class="input-help">
+						      									<ul>
+						        									<li ng-class="pwdValidLength">{{'NAVBAR_LOGIN_V3' | translate}}</li>
+						      									</ul>
+						    								</div>
+													</div>
+													<div class = "form-text text-muted font-input-help">{{'NAVBAR_LOGIN_PASS' | translate}}</div>
+												</div>
+											</div>
+
+											<!--
+											<div class="form-group row">
+												<label class="container-new"> Recordar Credenciales
+													<input type="checkbox" id="rememberCheckbox">
+													<span class="checkmark"></span>
+												</label>
+							                </div>
+							            	-->
+
+											<div class = "form-group row">
+												<div class = "col">
+												</div>
+											</div>
+										</div>
+									<div>
+										<small>{{'NAVBAR_LOGIN_QUESTION' | translate}}</small>
+										<a id = "goRegister" data-dismiss="modal" data-toggle="modal" data-target="#registerModal" href = "" class = "modal-link">
+											<small>		{{'NAVBAR_LOGIN_CLICK_HERE' | translate}}</small>
+										</a>
+									</div>
+								</div>
+								<div class = "modal-footer">
+									<div class = "container-fluid">
+										<div class = "row justify-content-center">
+											<div class = "col-6">	
+												<button type = "button" data-dismiss="modal" class = "clickable btn btn-outline-secondary-style" aria-label="Close">{{'NAVBAR_CANCEL' | translate}}</button>
+											</div>
+											<div class = "col-6">
+						    					<button ng-click="login(username, password)" data-dismiss="modal" type="submit" class="btn-dis btn btn-outline-primary-style" ng-disabled="loginForm.$invalid">{{'NAVBAR_SEND' | translate}}</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</form>
+					    </div>
+					  </div>
+					</div>
+
+				</div>
+				<a ng-show = "isAuthenticated" href = "#!/profile?component=pending">
+					<span class = "clickable badge badge-pill badge-warning"> {{'NAVBAR_PENDINGS' | translate}} {{pendingsCount}} </span>
+				</a>
+			</div>
+			<div class = "col-2 align-self-center">
+				<div ng-show = "!isAuthenticated">
+
+					<!-- Button trigger modal -->
+					<button type="button" class="clickable btn btn-outline-secondary-style" data-toggle="modal" data-target="#registerModal">
+					  {{'NAVBAR_REGISTER' | translate}}
+					</button>
+					<!-- Modal -->
+					<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+					  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+					    <div class="modal-content">
+							<form name = "registerForm" novalidate>
+								<div class = "modal-header">
+									<h4 class = "modal-title">
+										{{'NAVBAR_REGISTER' | translate}}
+									</h4>
+									<button type = "button" class = "clickable close" data-dismiss = "modal" aria-label = "Close">
+										<span aria-hidden = "true">
+											<img ng-src = "images/modal/button-close.png" alt = "Close" />
+										</span>
+									</button>
+								</div>
+								<div class = "modal-body">
+									<div>
+										<p>{{'NAVBAR_CREATE_ACCOUNT' | translate}}</p>
+									</div>
+									
+										<div class = "container-fluid">
+											<div class = "form-group row">
+												<div class = "col-12">
+													<div class = "input-group">
+														<div class="input-group-prepend">
+														    <div class="input-group-text input-group-addon">
+																<img ng-src = "images/modal/name.png" alt = "Name" />
+													        </div>
+													    </div>
+														<input ng-model="nameR" class="immediate-help form-control" name-validate required type="text" id="registerName" placeholder="{{'PLACEHOLDER_NAME' | translate}}"/>
+														<div class="input-help">
+				      										<ul>
+				        										<li ng-class="nameLength">{{'NAVBAR_REGISTER_NAME_LENGTH_VALID' | translate}}</li>
+				      										</ul>
+				    									</div>
+													</div>
+													<div class = "form-text text-muted font-input-help">{{'NAVBAR_REGISTER_NAME' | translate}}</div>
+												</div>
+											</div>
+											<div class = "form-group row">
+												<div class = "col-12">
+													<div class = "input-group">
+														<div class="input-group-prepend">
+														    <div class="input-group-text input-group-addon">
+																<img ng-src = "images/modal/mail.png" alt = "Mail" />
+													        </div>
+													    </div>
+														<input ng-model="emailR" class="immediate-help form-control" email-validate required type="text" id="registerEmail" placeholder="{{'PLACEHOLDER_EMAIL' | translate}}"/>
+					    									<div class="input-help">
+					      										<ul>
+					        										<li ng-class="emailPattern">{{'NAVBAR_REGISTER_EMAIL_VALID' | translate}}</li>
+					      										</ul>
+					    									</div>
+													</div>
+													<div class = "form-text text-muted font-input-help">{{'NAVBAR_REGISTER_EMAIL' | translate}}</div>
+												</div>
+											</div>
+											<div class = "form-group row">
+												<div class = "col-12">
+													<div class = "input-group">
+														<div class="input-group-prepend">
+														    <div class="input-group-text input-group-addon">
+																<img ng-src = "images/modal/username.png" alt = "Username" />
+													        </div>
+													    </div>
+														<input ng-model="usernameR" class="immediate-help form-control" username-validate required type="text" id="registerUsername" placeholder="{{'PLACEHOLDER_USER' | translate}}"/>
+					    								<div class="input-help">
+					      									<ul>
+					        									<li ng-class="pattern">{{'NAVBAR_REGISTER_EMAIL_V1' | translate}}</li>
+					        									<li ng-class="length">{{'NAVBAR_REGISTER_EMAIL_V2' | translate}}</li>
+					      									</ul>
+					    								</div>
+													</div>
+													<div class = "form-text text-muted font-input-help">{{'NAVBAR_REGISTER_NAME_VALID' | translate}}</div>
+												</div>
+											</div>
+											<div class = "form-group row">
+												<div class = "col-12">
+													<div class = "input-group">
+														<div class="input-group-prepend">
+														    <div class="input-group-text input-group-addon">
+																<img ng-src = "images/modal/password.png" alt = "Password" />
+													        </div>
+													    </div>
+														<input ng-model="passwordR" class="immediate-help form-control" password-validate required type="password" id="registerPassword" placeholder="{{'PLACEHOLDER_PASS' | translate}}"/>
+					    									<div class="input-help">
+					      										<ul>
+					        										<li ng-class="pwdValidLength">{{'NAVBAR_REGISTER_PASS_V1' | translate}}</li>
+					      										</ul>
+					    									</div>
+													</div>
+													<div class = "form-text text-muted font-input-help">{{'NAVBAR_REGISTER_PASS' | translate}}</div>
+												</div>
+											</div>
+											<div class = "form-group row">
+												<div class = "col-12">
+													<div class = "input-group">
+														<div class="input-group-prepend">
+														    <div class="input-group-text input-group-addon">
+																<img ng-src = "images/modal/repeat.png" alt = "Repeat" />
+													        </div>
+													    </div>
+														<input ng-model="repeatPasswordR" class="immediate-help form-control" compare-to="passwordR" required type="password" id="repeatRegisterPassword" placeholder="{{'PLACEHOLDER_PASS_REPEAT' | translate}}"/>
+													</div>
+													<div class = "form-text text-muted font-input-help">{{'NAVBAR_REGISTER_REPEAT_PASS' | translate}}</div>
+												</div>
+											</div>
+										</div>			
+								</div>
+								<div class = "modal-footer">
+									<div class = "container-fluid">
+										<div class = "row justify-content-center">
+											<div class = "col-6">
+												<button type = "button" data-dismiss = "modal" class = "clickable btn btn-outline-secondary-style">{{'NAVBAR_CANCEL' | translate}}</button>
+											</div>
+											<div class = "col-6">
+												<button ng-click="register(nameR,emailR,usernameR, passwordR)" type="submit" data-dismiss = "modal" class="btn-dis btn btn-outline-primary-style" ng-disabled="registerForm.$invalid">{{'NAVBAR_SEND' | translate}}</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</form>
+					    </div>
+					  </div>
+					</div>
+				</div>
+				<div ng-show = "isAuthenticated">
+    				<div layout="row">
+      					<div>
+		                  <div class="dropdown">
+		                    <button class="transparent-background btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true">
+		                      <img ng-if="!avatarLabel" ng-src="images/dashboard/profile-photo.png" height="50" width="50"/>
+		                      <img ng-if="avatarLabel" ng-src = "data:{{contentTypeLabel}};base64,{{avatarLabel}}" height="50" width="50" alt="Image" class="avatar-img"/>
+		                      {{nameLabel}}
+		                    </button>
+		                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+		                      <p class = "dropdown-header"> {{'NAVBAR_ENTER' | translate}}<strong>{{usernameLabel}}</strong> </p>
+		                      <div class="dropdown-divider"></div>
+		                      <p class = "popover-header"> {{'NAVBAR_REGISTER_WHAT_TO_DO' | translate}} </p>
+		                      <div class="dropdown-divider"></div>
+		                      <a class="dropdown-item" href = "#!/profile?component=user">{{'NAVBAR_PROFILE' | translate}}</a>
+		                      <a class="dropdown-item" href = "#!/profile?component=account">{{'NAVBAR_ACCOUNT' | translate}}</a>
+		                      <a class="dropdown-item" href = "#!/profile?component=pending">{{'NAVBAR_PENDINGS_2' | translate}}</a>
+		                      <div class="dropdown-divider"></div>
+		                      <a class="dropdown-item" href = "#!/catalogue">{{'NAVBAR_EVENTS' | translate}}</a>
+		                      <a class="dropdown-item" href = "#!/create-bar">{{'NAVBAR_ADD_PUB' | translate}}</a>
+		                      <div class="dropdown-divider"></div>
+		                      <a class="dropdown-item" ng-click="logout()" href="#">{{'NAVBAR_LOGOUT' | translate}}</a>
+		                    </div>
+		                  </div>
+      					</div>
+    				</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</nav>
